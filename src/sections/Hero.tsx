@@ -60,13 +60,14 @@ const Hero = () => {
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40' fill='%23000' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
               backgroundRepeat: 'repeat',
               backgroundSize: '40px 40px',
-              opacity: isDesktop ? 0.04 : 0.1,
+              opacity: 0.02,
               zIndex: 2
             }}
           />
         </div>
 
         <Container>
+          
           <motion.div
             style={isDesktop ? { y, opacity, scale } : {}}
             variants={containerVariants}
@@ -74,6 +75,7 @@ const Hero = () => {
             animate="visible"
             className="flex flex-col items-center text-center"
           >
+            
             <motion.h1
               variants={itemVariants}
               className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-slate-900 leading-[1.1] tracking-tight"
