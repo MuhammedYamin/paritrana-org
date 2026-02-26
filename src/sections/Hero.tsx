@@ -44,17 +44,26 @@ const Hero = () => {
 
       <div className="relative md:sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-white">
 
-        <div className="absolute inset-0 w-full h-full -z-10">
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
           <div
             className="absolute inset-0 w-full h-full"
             style={{
               background: "radial-gradient(125% 125% at 50% 10%, #fff 40%, #63e 100%)",
-              opacity: 0.15
+              opacity: 0.15,
+              zIndex: 1
             }}
           />
-          <div className="absolute inset-0 opacity-[0.03]"
-            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40' fill='%23000' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}>
-          </div>
+
+          <div
+            className="absolute inset-0 w-full h-full"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40' fill='%23000' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+              backgroundRepeat: 'repeat',
+              backgroundSize: '40px 40px',
+              opacity: isDesktop ? 0.04 : 0.1,
+              zIndex: 2
+            }}
+          />
         </div>
 
         <Container>
