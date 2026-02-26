@@ -339,7 +339,7 @@ body {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  display: block;
+  display: flex;
   transition: all 0.5s ease;
   perspective: 1000px; 
 }
@@ -365,12 +365,12 @@ body {
 .social-ig::before { background: #E4405F; }
 .social-li::before { background: #0077B5; }
 
-/* The Icon itself */
+/* The Icon  */
 .social-icon-spin {
   position: relative;
   z-index: 3;
   transition: 0.5s;
-  display: block;
+  display: flex;
   backface-visibility: hidden; 
 }
 

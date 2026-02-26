@@ -8,12 +8,8 @@ import clsx from "clsx";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FaXTwitter, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 
-
-
-
 export default function Navbar() {
     const [open, setOpen] = useState(false);
-
     const [show, setShow] = useState(true);
     const [lastScroll, setLastScroll] = useState(0);
     const [scrolled, setScrolled] = useState(false);
@@ -23,7 +19,17 @@ export default function Navbar() {
         setLoaded(true);
     }, []);
 
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
 
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [open]);
 
 
     useEffect(() => {
@@ -49,7 +55,6 @@ export default function Navbar() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScroll, open]);
-
 
     const navLinks = [
         { name: "Home", href: "/" },
@@ -79,28 +84,6 @@ export default function Navbar() {
         }
     };
 
-    const linkVariants: Variants = {
-        initial: { opacity: 0, x: 80 },
-        animate: (i: number) => ({
-            opacity: 1,
-            x: 0,
-            transition: {
-                delay: 0.4 + i * 0.1,
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        }),
-        exit: (i: number) => ({
-            opacity: 0,
-            x: 40,
-            transition: {
-                delay: (navLinks.length - i) * 0.07,
-                duration: 0.4,
-                ease: "easeInOut",
-            }
-        })
-    };
-
     return (
         <>
             <motion.header
@@ -114,29 +97,49 @@ export default function Navbar() {
                     delay: loaded ? 0 : 0.2,
                     ease: [0.22, 1, 0.36, 1]
                 }}
-                className="fixed left-1/2 top-4 z-210 w-full max-w-7xl -translate-x-1/2 px-4"
+                className="
+                    fixed left-1/2 top-3 md:top-4 z-50
+                    w-full max-w-7xl -translate-x-1/2
+                    px-3 sm:px-4 md:px-6
+                "
             >
                 <div
-                    className={`mx-4 rounded-2xl transition-all duration-300 ${scrolled
-                        ? "bg-white/80 backdrop-blur-xl border border-slate-200 shadow-lg"
-                        : "bg-transparent border-transparent shadow-none"
-                        }`}
+                    className={clsx(
+                        "rounded-xl md:rounded-2xl transition-all duration-300",
+                        scrolled
+                            ? "bg-white/80 backdrop-blur-xl border border-slate-200 shadow-lg"
+                            : "bg-transparent border-transparent shadow-none"
+                    )}
                 >
                     <Container>
-                        <div className="flex items-center justify-between h-16">
+                        <div className="flex items-center justify-between h-14 sm:h-16">
 
-                            <Link href="/" className="relative flex items-center h-16">
-                                <div className="relative h-16 w-32">
+                            {/* LOGO */}
+                            <Link
+                                href="/"
+                                onClick={() => setOpen(false)}  
+                                className="flex items-center h-full"
+                            >
+                                <div className="
+                                    relative 
+                                    right-14 h-50 sm:right-10 sm:h-52 md:right-8 md:h-44 
+                                    w-58 sm:w-52 md:w-46
+                                ">
                                     <Image
                                         src="/images/logo.png"
                                         alt="Paritrana Innovation"
                                         fill
-                                        className="object-contain scale-300"
+                                        className="
+                                            object-contain
+                                            scale-100 sm:scale-110 md:scale-125
+                                        "
                                         priority
                                     />
                                 </div>
                             </Link>
-                            <nav className="hidden md:flex justify-center gap-8 text-xl font-semibold text-black">
+
+                            {/* DESKTOP NAV */}
+                            <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-black">
                                 {navLinks.map((link) => (
                                     <Link
                                         key={link.name}
@@ -145,13 +148,16 @@ export default function Navbar() {
                                     >
                                         <span
                                             className="
-                    /* 2. Span text - Reduced from text-2xl to text-lg/base */
-                    relative pb-1 text-lg font-medium tracking-widest text-black
-                    after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full 
-                    after:origin-bottom-right after:scale-x-0 after:bg-black 
-                    after:transition-transform after:duration-300 after:ease-out
-                    group-hover:after:origin-bottom-left group-hover:after:scale-x-100
-                    "
+                                                relative pb-1
+                                                text-sm lg:text-base xl:text-lg
+                                                font-medium tracking-widest
+                                                text-black whitespace-nowrap
+                                                antialiased
+                                                after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full 
+                                                after:origin-bottom-right after:scale-x-0 after:bg-black 
+                                                after:transition-transform after:duration-300 after:ease-out
+                                                group-hover:after:origin-bottom-left group-hover:after:scale-x-100
+                                            "
                                         >
                                             {link.name}
                                         </span>
@@ -159,7 +165,10 @@ export default function Navbar() {
                                 ))}
                             </nav>
 
-                            <div className="flex items-center justify-end">
+                            {/* RIGHT SIDE */}
+                            <div className="flex items-center gap-2 sm:gap-4">
+
+                                {/* CTA */}
                                 <div className="hidden md:block relative w-[200px] h-16">
 
                                     <Link
@@ -203,9 +212,10 @@ export default function Navbar() {
                                     </Link>
                                 </div>
 
+                                {/* MOBILE MENU BUTTON */}
                                 <button
                                     onClick={() => setOpen(!open)}
-                                    className="relative z-220 w-10 h-10 flex items-center justify-center md:hidden"
+                                    className="relative z-50 w-10 h-10 flex items-center justify-center md:hidden"
                                 >
                                     <span className={`bar top ${open ? "open" : ""}`} />
                                     <span className={`bar middle ${open ? "open" : ""}`} />
@@ -217,6 +227,7 @@ export default function Navbar() {
                 </div>
             </motion.header>
 
+            {/* MOBILE MENU */}
             <AnimatePresence>
                 {open && (
                     <motion.div
@@ -224,31 +235,53 @@ export default function Navbar() {
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        className="fixed inset-0 z-[200] bg-white flex flex-col md:hidden"
+                        className="fixed inset-0 z-40 bg-white flex flex-col md:hidden"
                     >
-                        <div className="flex flex-col h-full justify-between px-10 pt-32 pb-12">
-                            <nav className="flex flex-col gap-6">
+                        <div className="flex flex-col h-full justify-between px-6 sm:px-10 pt-24 sm:pt-32 pb-10 sm:pb-12">
+
+                            {/* LINKS */}
+                            <nav className="flex flex-col gap-5 sm:gap-6">
                                 {navLinks.map((link, i) => (
-                                    <motion.div key={link.name} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * i }}>
-                                        <Link href={link.href} onClick={() => setOpen(false)} className="text-4xl font-light hover:font-bold transition-all text-black">
+                                    <motion.div
+                                        key={link.name}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.1 * i }}
+                                    >
+                                        <Link
+                                            href={link.href}
+                                            onClick={() => setOpen(false)}
+                                            className="text-2xl sm:text-3xl md:text-4xl font-light hover:font-semibold transition-all text-black"
+                                        >
                                             {link.name}
                                         </Link>
                                     </motion.div>
                                 ))}
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-                                    <Link href="#contact" onClick={() => setOpen(false)} className="text-4xl font-light hover:font-bold transition-all text-black">
+
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                >
+                                    <Link
+                                        href="/contact"
+                                        onClick={() => setOpen(false)}
+                                        className="text-2xl sm:text-3xl md:text-4xl font-light hover:font-semibold transition-all text-black"
+                                    >
                                         Get in Touch →
                                     </Link>
                                 </motion.div>
                             </nav>
 
+                            {/* SOCIAL */}
                             <div className="flex flex-col gap-6">
                                 <div className="h-[1px] w-full bg-gray-300" />
-                                <div className="flex items-center gap-8 text-black">
-                                    <a href="#" className="text-2xl hover:scale-110 transition-transform"><FaInstagram /></a>
-                                    <a href="#" className="text-2xl hover:scale-110 transition-transform"><FaXTwitter /></a>
-                                    <a href="#" className="text-2xl hover:scale-110 transition-transform"><FaLinkedinIn /></a>
-                                    <a href="#" className="text-2xl hover:scale-110 transition-transform"><FaWhatsapp /></a>
+
+                                <div className="flex items-center gap-6 sm:gap-8 text-black">
+                                    <a href="#" className="text-xl sm:text-2xl hover:scale-110 transition-transform"><FaInstagram /></a>
+                                    <a href="#" className="text-xl sm:text-2xl hover:scale-110 transition-transform"><FaXTwitter /></a>
+                                    <a href="#" className="text-xl sm:text-2xl hover:scale-110 transition-transform"><FaLinkedinIn /></a>
+                                    <a href="#" className="text-xl sm:text-2xl hover:scale-110 transition-transform"><FaWhatsapp /></a>
                                 </div>
                             </div>
                         </div>

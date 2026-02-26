@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import Container from "@/src/components/Container";
 import { Mail, MapPin, Phone, Send, Clock } from "lucide-react";
@@ -31,51 +31,57 @@ const itemVariants: Variants = {
 };
 
 export default function ContactPage() {
+
+
+
+
+
     return (
         <main className="bg-[#f8f7f3] pt-32 pb-20">
+            {/* Hero Section */}
             <section className="mb-12">
                 <Container>
-
                     <div className="max-w-4xl">
                         <motion.span
                             {...fadeIn}
                             className="text-teal-600 font-bold uppercase tracking-[0.4em] text-sm block mb-4"
                         >
-                            Connect with us
+                            Connect With Us
                         </motion.span>
                         <motion.h1
                             {...fadeIn}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-6xl lg:text-8xl font-bold text-slate-900 leading-[1.1] tracking-tight whitespace-normal lg:whitespace-nowrap"
+                            className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-slate-900 leading-[1.1] tracking-tight whitespace-normal lg:whitespace-nowrap"
                         >
                             LET'S ENGINEER
                             <br className="block md:hidden" />
                             <span className="text-slate-400 md:ml-4 lg:ml-6">THE FUTURE.</span>
                         </motion.h1>
-
                     </div>
                 </Container>
             </section>
 
-            <section className="py-24 bg-white border-y border-slate-200 overflow-hidden relative">
-
+            {/* Form Section */}
+            <section className="py-13 bg-white border-y border-slate-200 overflow-hidden relative">
                 <Container>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                        {/* Form Card */}
                         <motion.div
                             {...fadeIn}
                             transition={{ delay: 0.2 }}
-                            className="lg:col-span-7 bg-white p-8 lg:p-12 rounded-[32px] shadow-sm border border-slate-100 relative overflow-hidden"
+                            className="lg:col-span-7 bg-white p-8 sm:p-10 lg:p-12 rounded-[2rem] shadow-sm border border-slate-100 relative overflow-hidden"
                         >
-                            <form className="flex-1 flex flex-col justify-between relative z-10 min-h-[550px]">
-                                <div className="space-y-12">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                            <form className="flex flex-col justify-between relative z-10 min-h-[550px]">
+                                <div className="space-y-10 sm:space-y-12">
+                                    {/* Name / Email */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 md:gap-x-8 gap-y-6 sm:gap-y-12">
+                                        {/* Full Name */}
                                         <motion.div variants={itemVariants} className="relative z-0 w-full group">
                                             <input
                                                 type="text"
                                                 name="name"
                                                 id="name"
-                                                className="block py-3 px-0 w-full text-lg text-slate-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-teal-600 peer"
+                                                className="block py-3 px-2 w-full text-lg text-slate-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                                                 placeholder=" "
                                                 required
                                             />
@@ -87,12 +93,13 @@ export default function ContactPage() {
                                             </label>
                                         </motion.div>
 
+                                        {/* Work Email */}
                                         <motion.div variants={itemVariants} className="relative z-0 w-full group">
                                             <input
                                                 type="email"
                                                 name="email"
                                                 id="email"
-                                                className="block py-3 px-0 w-full text-lg text-slate-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-teal-600 peer"
+                                                className="block py-3 px-2 w-full text-lg text-slate-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                                                 placeholder=" "
                                                 required
                                             />
@@ -105,14 +112,18 @@ export default function ContactPage() {
                                         </motion.div>
                                     </div>
 
+                                    {/* Inquiry Type */}
                                     <motion.div variants={itemVariants} className="space-y-2 relative">
                                         <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">
                                             Inquiry Type
                                         </label>
-
                                         <div className="custom-select-container">
                                             <div className="select-selected">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="select-arrow">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 512 512"
+                                                    className="select-arrow"
+                                                >
                                                     <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
                                                 </svg>
                                             </div>
@@ -137,12 +148,13 @@ export default function ContactPage() {
                                         </div>
                                     </motion.div>
 
+                                    {/* Message */}
                                     <motion.div variants={itemVariants} className="relative z-0 w-full group">
                                         <textarea
                                             name="message"
                                             id="message"
                                             rows={4}
-                                            className="block py-3 px-0 w-full text-lg text-slate-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-teal-600 peer resize-none"
+                                            className="block py-3 px-2 w-full text-lg text-slate-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-teal-600 peer resize-none"
                                             placeholder=" "
                                             required
                                         />
@@ -155,11 +167,12 @@ export default function ContactPage() {
                                     </motion.div>
                                 </div>
 
-                                <div className="pt-12 relative mb-15 lg:mb-30">
+                                {/* Button */}
+                                <div className="pt-10 relative mb-16 lg:mb-24">
                                     <motion.button
                                         variants={itemVariants}
                                         whileTap={{ scale: 0.95 }}
-                                        className="group relative z-20 w-48 py-3.5 bg-slate-900 text-white font-bold rounded-xl overflow-hidden flex items-center justify-center gap-2 transition-all duration-300 hover:bg-teal-600 shadow-lg shadow-teal-900/10"
+                                        className="group relative z-20 w-full sm:w-64 py-3.5 bg-slate-900 text-white font-bold rounded-xl overflow-hidden flex items-center justify-center gap-2 transition-all duration-300 hover:bg-teal-600 shadow-lg shadow-teal-900/10"
                                     >
                                         <div className="relative flex items-center justify-center transition-all duration-300 group-hover:translate-x-[3.5rem]">
                                             <div className="group-hover:animate-[fly_0.6s_ease-in-out_infinite_alternate]">
@@ -174,41 +187,44 @@ export default function ContactPage() {
                                         </span>
                                     </motion.button>
                                 </div>
+
+                                {/* Watermark */}
+                                <div className="absolute inset-0 -bottom-5 md:-bottom-10 lg:-bottom-10 flex items-end justify-center pointer-events-none select-none overflow-hidden">
+                                    <h1 className="text-[clamp(3rem,11vw,8rem)]  font-black uppercase whitespace-nowrap leading-none text-black/[0.03]">
+                                        Connect
+                                    </h1>
+                                </div>
                             </form>
 
-                            <div className="absolute -bottom-1 lg:bottom-0 -left-0 pointer-events-none select-none z-0 opacity-[0.03]">
-                                <h2 className="text-[75px] md:text-[100px] lg:text-[160px] font-black uppercase font-arena leading-none text-slate-900">
-                                    Connect
-                                </h2>
-                            </div>
                         </motion.div>
 
+                        {/* Contact Cards */}
                         <motion.div
                             {...fadeIn}
                             transition={{ delay: 0.4 }}
-                            className="lg:col-span-5 space-y-12"
+                            className="lg:col-span-5 space-y-10 sm:space-y-12 mt-7 lg:mt-0"
                         >
-                            {/* Contact Cards */}
-                            <div className="space-y-8">
+                            <div className="space-y-6 sm:space-y-8">
                                 {[
                                     { icon: Mail, label: "Electronic Mail", val: "solutions@paritrana.com" },
                                     { icon: Phone, label: "Global Support", val: "+1 (555) 000-1234" },
                                     { icon: MapPin, label: "Innovation HQ", val: "Tech Enclave, Silicon Square, IN" },
                                     { icon: Clock, label: "Response Time", val: "Within 24 Business Hours" },
                                 ].map((item, i) => (
-                                    <div key={i} className="flex items-start gap-6 group">
+                                    <div key={i} className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 group">
                                         <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm border border-slate-100 text-teal-600 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300">
                                             <item.icon className="w-5 h-5" />
                                         </div>
                                         <div>
                                             <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 mb-1">{item.label}</p>
-                                            <p className="text-slate-900 font-bold">{item.val}</p>
+                                            <p className="text-slate-900 font-bold break-words">{item.val}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="relative w-full aspect-video rounded-[32px] bg-slate-200 overflow-hidden border border-slate-200">
+                            {/* Map / Coordinate */}
+                            <div className="relative w-full aspect-video rounded-[32px] bg-slate-200 overflow-hidden border border-slate-200 mt-8 sm:mt-12">
                                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')] opacity-20" />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="relative">
@@ -224,7 +240,6 @@ export default function ContactPage() {
                     </div>
                 </Container>
             </section>
-
         </main>
     );
 }
